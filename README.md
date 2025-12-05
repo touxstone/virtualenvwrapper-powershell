@@ -226,7 +226,7 @@ Asegúrate de que tu archivo de configuración de Oh My Posh (ej: `MiTema.omp.js
 ```
 ### En este ejemplo
 El `$PROFILE` después de la la línea `Set-PSReadLineOption -EditMode Emacs` que define el modo edición y atajos de teclado tipo `EMACS` la definicón de tema `oh-my-posh` se lee:
-```PS
+```powershell
 oh-my-posh init pwsh --config "$env:POSH_THEMES_PATH\quick-term.omp.json" | Invoke-Expression
 ```
 
@@ -269,10 +269,15 @@ Unblock-File -Path C:\Users\YourUser\Documents\PowerShell\Modules\VirtualEnvWrap
 
 The order of execution in your `$PROFILE` script is **CRITICAL** to ensure the module uses your preferred path and doesn't default to creating `~\Envs`.
 
-Open your `$PROFILE` (`C:\Users\...\Microsoft.PowerShell_profile.ps1`) and use this structure:
+Open your `$PROFILE` (`C:\Users\...\Microsoft.PowerShell_profile.ps1`) or `$notepad $PROFILE` and use this structure:
 
 ```powershell
 # --- virtualenvwrapper-powershell Configuration ---
+#--Optional for `EMACS` like keybinding
+Set-PSReadLineOption -EditMode Emacs
+
+# Theme in this example 
+oh-my-posh init pwsh --config "$env:POSH_THEMES_PATH\quick-term.omp.json" | Invoke-Expression
 
 # 1. DEFINE the virtual environment path (CRITICAL: FIRST!)
 $env:WORKON_HOME = "$HOME\.virtualenvs"
