@@ -126,15 +126,15 @@ A script `InstallDev.ps1` exists to simplify the development. Invoke it with:
 
 will unload `VirtualEnvWrapper.ps1` from memory and reload it.
 
-# [Fork Adds](#fork-adds-concise-english-version)
-# ?? Instalaci®Æn Mejorada y Soluci®Æn de Problemas (PowerShell Core / PS 7+)
+# ?? [Fork Adds](#fork-adds-concise-english-version)
+# Instalaci®Æn Mejorada y Soluci®Æn de Problemas (PowerShell Core / PS 7+) ??
 ## Curated by RS Montalvo
 
 Esta documentaci®Æn complementa las instrucciones originales de `virtualenvwrapper-powershell`, proporcionando un m®¶todo de instalaci®Æn manual robusto y soluciones para los *bugs* espec®™ficos encontrados en **PowerShell Core (PS 7+)** que impiden la carga correcta y el funcionamiento de `workon`.
 
 Adem®¢s, se incluye la configuraci®Æn de **Oh My Posh** para integrar el indicador del entorno virtual de Python (`(venv)`) directamente en el *prompt* personalizado.
 
-## 1\. üìÇ Instalaci®Æn Manual y Organizaci®Æn del M®Ædulo
+## 1\. Instalaci®Æn Manual y Organizaci®Æn del M®Ædulo
 
 La instalaci®Æn manual garantiza que el m®Ædulo se cargue en la ruta moderna de PowerShell Core y que puedas aplicar las correcciones necesarias al c®Ædigo.
 
@@ -176,20 +176,20 @@ Se deben realizar las siguientes correcciones directamente en el archivo `Virtua
 
 2.  **Corregir el Fallo de Inicializaci®Æn (Bug de Asignaci®Æn):** La l®Ægica de asignaci®Æn inicial falla al leer la variable de entorno, causando que el m®Ædulo siempre use el valor por defecto (`~\Envs`).
 
-      * **Soluci®Æn Quir√∫rgica:** Reemplazar el bloque de inicializaci®Æn para forzar la lectura correcta y eliminar la l®Ægica de contingencia fallida. (Ver el √∫ltimo c®Ædigo propuesto).
+      * **Soluci®Æn Quir®≤rgica:** Reemplazar el bloque de inicializaci®Æn para forzar la lectura correcta y eliminar la l®Ægica de contingencia fallida. (Ver el ®≤ltimo c®Ædigo propuesto).
 
 -----
 
-## 2\. üìù Configuraci®Æn en el `$PROFILE`
+## 2\. Configuraci®Æn en el `$PROFILE`
 
-El orden de las l®™neas en tu script de perfil (`$PROFILE`) es **CR√çTICO**. La variable `$env:WORKON_HOME` debe definirse *antes* de que el m®Ædulo sea importado.
+El orden de las l®™neas en tu script de perfil (`$PROFILE`) es **CR®™TICO**. La variable `$env:WORKON_HOME` debe definirse *antes* de que el m®Ædulo sea importado.
 
 Abre `C:\Users\TuUsuario\Documents\PowerShell\Microsoft.PowerShell_profile.ps1` y usa la siguiente estructura:
 
 ```powershell
 # --- Configuraci®Æn de virtualenvwrapper-powershell ---
 
-# 1. DEFINIR la ruta de los entornos virtuales (¬°CR√çTICO: PRIMERO!)
+# 1. DEFINIR la ruta de los entornos virtuales (CR®™TICO: PRIMERO!)
 $env:WORKON_HOME = "$HOME\.virtualenvs"
 
 # 2. (Opcional) Asegurar la existencia y ocultar la carpeta en Windows
@@ -198,7 +198,7 @@ if (-not (Test-Path -Path $env:WORKON_HOME -PathType Container)) {
     (Get-Item $env:WORKON_HOME).Attributes += 'Hidden'
 }
 
-# 3. IMPORTAR el m®Ædulo (¬°SEGUNDO!)
+# 3. IMPORTAR el m®Ædulo (SEGUNDO!)
 Import-Module VirtualEnvWrapper
 
 # --- Configuraci®Æn de Oh My Posh ---
@@ -209,13 +209,13 @@ oh-my-posh init pwsh --config 'C:\Users\TuUsuario\MiTema.omp.json' | Invoke-Expr
 
 -----
 
-## 3\. ‚ú?Integraci®Æn con Oh My Posh
+## 3\. Integraci®Æn con Oh My Posh
 
 Para que el *prompt* de Oh My Posh muestre el nombre del entorno virtual (ejemplo: `(venv) C:\ruta>`), necesitas que tu tema (`.omp.json`) tenga un segmento configurado para Python.
 
 ### A. Verificar la Integraci®Æn
 
-Aseg√∫rate de que tu archivo de configuraci®Æn de Oh My Posh (ej: `MiTema.omp.json`) contenga un segmento con el siguiente tipo:
+Aseg®≤rate de que tu archivo de configuraci®Æn de Oh My Posh (ej: `MiTema.omp.json`) contenga un segmento con el siguiente tipo:
 
 ```json
 {
@@ -243,20 +243,20 @@ Al seguir estos pasos, se resuelve la inestabilidad de `virtualenvwrapper-powers
 
 -----
 
-# üöÄ Enhanced Installation and Patching for PowerShell Core (PS 7+)
+# Enhanced Installation and Patching for PowerShell Core (PS 7+)
 
 This guide supplements the original `virtualenvwrapper-powershell` instructions by detailing the manual installation and the **essential `$PROFILE` adjustments** required to fix known scope bugs and alias conflicts in **PowerShell Core (PS 7+)**.
 
 The steps also include integrating the custom prompt engine **Oh My Posh** to display the Python virtual environment indicator (`(venv)`).
 
-## 1\. üìÇ Manual Module Installation
+## 1\. Manual Module Installation
 
 Ensure the module is correctly placed and unblocked in your system:
 
   * **Path:** The base directory should be `C:\Users\YourUser\Documents\PowerShell\Modules`.
   * **Files:** Download `VirtualEnvWrapper.psm1` (and optionally create `VirtualEnvWrapper.psd1`) into the `VirtualEnvWrapper` folder.
 
-### üö® Unblock Files
+### Unblock Files
 
 To allow PowerShell to execute the downloaded code, remove the "Mark of the Web":
 
@@ -266,7 +266,7 @@ Unblock-File -Path C:\Users\YourUser\Documents\PowerShell\Modules\VirtualEnvWrap
 
 -----
 
-## 2\. üìù `$PROFILE` Configuration (Critical Order)
+## 2\. `$PROFILE` Configuration (Critical Order)
 
 The order of execution in your `$PROFILE` script is **CRITICAL** to ensure the module uses your preferred path and doesn't default to creating `~\Envs`.
 
@@ -304,7 +304,7 @@ oh-my-posh init pwsh --config 'C:\Users\YourUser\MyTheme.omp.json' | Invoke-Expr
 
 -----
 
-## 3\. ‚ú?Oh My Posh Integration
+## 3\. Oh My Posh Integration
 
 For your custom prompt to display the virtual environment name (e.g., `(venv)`), your theme file (`.omp.json`) must include a `python` segment:
 
