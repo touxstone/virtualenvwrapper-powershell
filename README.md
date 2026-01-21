@@ -126,8 +126,8 @@ A script `InstallDev.ps1` exists to simplify the development. Invoke it with:
 
 will unload `VirtualEnvWrapper.ps1` from memory and reload it.
 
-# 🚀 [Fork Adds](#fork-adds-concise-english-version)
-# Instalación Mejorada y Solución de Problemas (PowerShell Core / PS 7+) 
+#  [Fork Adds](#fork-adds-concise-english-version)
+# 🚀 Instalación Mejorada y Solución de Problemas (PowerShell Core / PS 7+) 
 ## Curated by RS Montalvo
 
 Esta documentación complementa las instrucciones originales de `virtualenvwrapper-powershell`, proporcionando un método de instalación manual robusto y soluciones para los *bugs* específicos encontrados en **PowerShell Core (PS 7+)** que impiden la carga correcta y el funcionamiento de `workon`.
@@ -239,8 +239,7 @@ Al seguir estos pasos, se resuelve la inestabilidad de `virtualenvwrapper-powers
 
 -----
 
-## Fork Adds (Concise English Version)
-
+## [Fork Adds (Concise English Version)](#fork-adds)
 -----
 
 # Enhanced Installation and Patching for PowerShell Core (PS 7+)
