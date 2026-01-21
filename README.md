@@ -2,7 +2,7 @@
 
 This is a mimic of the powerfull [virtualenvwrapper](https://bitbucket.org/virtualenvwrapper/) but for [Windows Powershell](https://bitbucket.org/virtualenvwrapper/). 
 
-Unless the previous version of my esteemed colleague [Guillermo L貌pez](https://bitbucket.org/guillermooo/virtualenvwrapper-powershell/overview) equivalent but obsolete it's compatible with Python 2+ and entierly based on a PowerShell script.
+Unless the previous version of my esteemed colleague [Guillermo López](https://bitbucket.org/guillermooo/virtualenvwrapper-powershell/overview) equivalent but obsolete it's compatible with Python 2+ and entierly based on a PowerShell script.
 
 ## Installation
 
@@ -127,30 +127,30 @@ A script `InstallDev.ps1` exists to simplify the development. Invoke it with:
 will unload `VirtualEnvWrapper.ps1` from memory and reload it.
 
 # [Fork Adds](#fork-adds-concise-english-version)
-# 馃殌 Instalaci贸n Mejorada y Soluci贸n de Problemas (PowerShell Core / PS 7+)
-### Curated by RS Montalvo
+# ?? Instalación Mejorada y Solución de Problemas (PowerShell Core / PS 7+)
+## Curated by RS Montalvo
 
-Esta documentaci贸n complementa las instrucciones originales de `virtualenvwrapper-powershell`, proporcionando un m茅todo de instalaci贸n manual robusto y soluciones para los *bugs* espec铆ficos encontrados en **PowerShell Core (PS 7+)** que impiden la carga correcta y el funcionamiento de `workon`.
+Esta documentación complementa las instrucciones originales de `virtualenvwrapper-powershell`, proporcionando un método de instalación manual robusto y soluciones para los *bugs* específicos encontrados en **PowerShell Core (PS 7+)** que impiden la carga correcta y el funcionamiento de `workon`.
 
-Adem谩s, se incluye la configuraci贸n de **Oh My Posh** para integrar el indicador del entorno virtual de Python (`(venv)`) directamente en el *prompt* personalizado.
+Además, se incluye la configuración de **Oh My Posh** para integrar el indicador del entorno virtual de Python (`(venv)`) directamente en el *prompt* personalizado.
 
-## 1\. 馃搨 Instalaci贸n Manual y Organizaci贸n del M贸dulo
+## 1\. 馃搨 Instalación Manual y Organización del Módulo
 
-La instalaci贸n manual garantiza que el m贸dulo se cargue en la ruta moderna de PowerShell Core y que puedas aplicar las correcciones necesarias al c贸digo.
+La instalación manual garantiza que el módulo se cargue en la ruta moderna de PowerShell Core y que puedas aplicar las correcciones necesarias al código.
 
-### A. Preparaci贸n de Archivos
+### A. Preparación de Archivos
 
-1.  **Rutas Clave:** Confirma que tu directorio de m贸dulos sea la ruta moderna (sin "Windows"):
+1.  **Rutas Clave:** Confirma que tu directorio de módulos sea la ruta moderna (sin "Windows"):
 
       * `C:\Users\TuUsuario\Documents\PowerShell\Modules`
 
-2.  **Creaci贸n de la Carpeta:** Crea la carpeta del m贸dulo:
+2.  **Creación de la Carpeta:** Crea la carpeta del módulo:
 
     ```powershell
     mkdir C:\Users\TuUsuario\Documents\PowerShell\Modules\VirtualEnvWrapper
     ```
 
-3.  **Archivos del M贸dulo:** Descarga `VirtualEnvWrapper.psm1` del repositorio y col贸calo en la nueva carpeta. (Opcional, pero recomendado) Crea un archivo **`VirtualEnvWrapper.psd1`** (Manifiesto del M贸dulo) para adherirte a las buenas pr谩cticas de PowerShell.
+3.  **Archivos del Módulo:** Descarga `VirtualEnvWrapper.psm1` del repositorio y colócalo en la nueva carpeta. (Opcional, pero recomendado) Crea un archivo **`VirtualEnvWrapper.psd1`** (Manifiesto del Módulo) para adherirte a las buenas prácticas de PowerShell.
 
 4.  **Desbloqueo de Archivos:** Dado que el archivo `.psm1` fue descargado de Internet, debe ser desbloqueado para que `RemoteSigned` lo ejecute:
 
@@ -158,36 +158,36 @@ La instalaci贸n manual garantiza que el m贸dulo se cargue en la ruta moderna de 
     Unblock-File -Path C:\Users\TuUsuario\Documents\PowerShell\Modules\VirtualEnvWrapper\VirtualEnvWrapper.psm1
     ```
 
-### B. Correcciones Cr铆ticas de C贸digo (Bug de PS 7+)
+### B. Correcciones Críticas de Código (Bug de PS 7+)
 
-Se deben realizar las siguientes correcciones directamente en el archivo `VirtualEnvWrapper.psm1` para evitar fallos de 谩mbito (*scope*) y la creaci贸n incorrecta del directorio `~\Envs`.
+Se deben realizar las siguientes correcciones directamente en el archivo `VirtualEnvWrapper.psm1` para evitar fallos de ámbito (*scope*) y la creación incorrecta del directorio `~\Envs`.
 
-1.  **Corregir la Activaci贸n (`workon`):** El comando nativo de activaci贸n debe usar *dot-sourcing* para modificar el *prompt* de PowerShell.
+1.  **Corregir la Activación (`workon`):** El comando nativo de activación debe usar *dot-sourcing* para modificar el *prompt* de PowerShell.
 
-      * **Ubicaci贸n:** Funci贸n `Workon` (alrededor de la l铆nea 318).
+      * **Ubicación:** Función `Workon` (alrededor de la línea 318).
       * **Cambiar:**
         ```powershell
         Import-Module $activate_path -Force
         ```
       * **A:**
         ```powershell
-        . $activate_path # Usa dot-sourcing para ejecutar en el 谩mbito actual
+        . $activate_path # Usa dot-sourcing para ejecutar en el ámbito actual
         ```
 
-2.  **Corregir el Fallo de Inicializaci贸n (Bug de Asignaci贸n):** La l贸gica de asignaci贸n inicial falla al leer la variable de entorno, causando que el m贸dulo siempre use el valor por defecto (`~\Envs`).
+2.  **Corregir el Fallo de Inicialización (Bug de Asignación):** La lógica de asignación inicial falla al leer la variable de entorno, causando que el módulo siempre use el valor por defecto (`~\Envs`).
 
-      * **Soluci贸n Quir煤rgica:** Reemplazar el bloque de inicializaci贸n para forzar la lectura correcta y eliminar la l贸gica de contingencia fallida. (Ver el 煤ltimo c贸digo propuesto).
+      * **Solución Quir煤rgica:** Reemplazar el bloque de inicialización para forzar la lectura correcta y eliminar la lógica de contingencia fallida. (Ver el 煤ltimo código propuesto).
 
 -----
 
-## 2\. 馃摑 Configuraci贸n en el `$PROFILE`
+## 2\. 馃摑 Configuración en el `$PROFILE`
 
-El orden de las l铆neas en tu script de perfil (`$PROFILE`) es **CR脥TICO**. La variable `$env:WORKON_HOME` debe definirse *antes* de que el m贸dulo sea importado.
+El orden de las líneas en tu script de perfil (`$PROFILE`) es **CR脥TICO**. La variable `$env:WORKON_HOME` debe definirse *antes* de que el módulo sea importado.
 
 Abre `C:\Users\TuUsuario\Documents\PowerShell\Microsoft.PowerShell_profile.ps1` y usa la siguiente estructura:
 
 ```powershell
-# --- Configuraci贸n de virtualenvwrapper-powershell ---
+# --- Configuración de virtualenvwrapper-powershell ---
 
 # 1. DEFINIR la ruta de los entornos virtuales (隆CR脥TICO: PRIMERO!)
 $env:WORKON_HOME = "$HOME\.virtualenvs"
@@ -198,24 +198,24 @@ if (-not (Test-Path -Path $env:WORKON_HOME -PathType Container)) {
     (Get-Item $env:WORKON_HOME).Attributes += 'Hidden'
 }
 
-# 3. IMPORTAR el m贸dulo (隆SEGUNDO!)
+# 3. IMPORTAR el módulo (隆SEGUNDO!)
 Import-Module VirtualEnvWrapper
 
-# --- Configuraci贸n de Oh My Posh ---
+# --- Configuración de Oh My Posh ---
 
-# Si usas Oh My Posh, carga el motor y tu tema aqu铆:
+# Si usas Oh My Posh, carga el motor y tu tema aquí:
 oh-my-posh init pwsh --config 'C:\Users\TuUsuario\MiTema.omp.json' | Invoke-Expression
 ```
 
 -----
 
-## 3\. 鉁?Integraci贸n con Oh My Posh
+## 3\. 鉁?Integración con Oh My Posh
 
 Para que el *prompt* de Oh My Posh muestre el nombre del entorno virtual (ejemplo: `(venv) C:\ruta>`), necesitas que tu tema (`.omp.json`) tenga un segmento configurado para Python.
 
-### A. Verificar la Integraci贸n
+### A. Verificar la Integración
 
-Aseg煤rate de que tu archivo de configuraci贸n de Oh My Posh (ej: `MiTema.omp.json`) contenga un segmento con el siguiente tipo:
+Aseg煤rate de que tu archivo de configuración de Oh My Posh (ej: `MiTema.omp.json`) contenga un segmento con el siguiente tipo:
 
 ```json
 {
@@ -226,14 +226,14 @@ Aseg煤rate de que tu archivo de configuraci贸n de Oh My Posh (ej: `MiTema.omp.js
 }
 ```
 ### En este ejemplo
-El `$PROFILE` despu茅s de la la l铆nea `Set-PSReadLineOption -EditMode Emacs` que define el modo edici贸n y atajos de teclado tipo `EMACS` la definic贸n de tema `oh-my-posh` se lee:
+El `$PROFILE` después de la la línea `Set-PSReadLineOption -EditMode Emacs` que define el modo edición y atajos de teclado tipo `EMACS` la definicón de tema `oh-my-posh` se lee:
 ```powershell
 oh-my-posh init pwsh --config "$env:POSH_THEMES_PATH\quick-term.omp.json" | Invoke-Expression
 ```
 
-### B. Soluci贸n al Conflicto de Aliases
+### B. Solución al Conflicto de Aliases
 
-En PowerShell Core, el *bug* de alias *case-insensitive* puede afectar funciones clave como `workon`, por ello estos ajustes se han montado en una capa posterior como es el $PROFILE. En una versi贸n siguiente y quiz谩 independiente de este ajuste, o `TO-DO` el ajuste ser铆a evitar la creaci贸n del `alias` `workon` (o crearlo aociado a nombre matriz diferente e.g. `invoke-Workon`) pero en vista que PS es `case insensitive` tampoco har铆a falta. 
+En PowerShell Core, el *bug* de alias *case-insensitive* puede afectar funciones clave como `workon`, por ello estos ajustes se han montado en una capa posterior como es el $PROFILE. En una versión siguiente y quizá independiente de este ajuste, o `TO-DO` el ajuste sería evitar la creación del `alias` `workon` (o crearlo aociado a nombre matriz diferente e.g. `invoke-Workon`) pero en vista que PS es `case insensitive` tampoco haría falta. 
 
 Al seguir estos pasos, se resuelve la inestabilidad de `virtualenvwrapper-powershell` en PS 7+ y se integra perfectamente con la experiencia visual de Oh My Posh.
 
