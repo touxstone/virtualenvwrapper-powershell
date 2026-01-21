@@ -2,7 +2,7 @@
     # METADATOS BÁSICOS
     ModuleVersion = '12.7.8' # Usamos la versión de PyPI del proyecto original.
     Author = 'Guillermo López / regisf'
-	Forked by = RS Montalvo / Touxstone 
+	Forked by = RS Montalvo / Touxstone / https://github.com/touxstone/virtualenvwrapper-powershell
 	GUID [for this fork] = 8b9ad21e-2178-4192-b4bf-d1b8958581b6
     CompanyName = 'io'
     Copyright = '(c) 2012-2025 regisf. Todos los derechos reservados.'

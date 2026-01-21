@@ -128,6 +128,7 @@ will unload `VirtualEnvWrapper.ps1` from memory and reload it.
 
 # [Fork Adds](#fork-adds-concise-english-version)
 # 🚀 Instalación Mejorada y Solución de Problemas (PowerShell Core / PS 7+)
+### Curated by RS Montalvo
 
 Esta documentación complementa las instrucciones originales de `virtualenvwrapper-powershell`, proporcionando un método de instalación manual robusto y soluciones para los *bugs* específicos encontrados en **PowerShell Core (PS 7+)** que impiden la carga correcta y el funcionamiento de `workon`.
 
@@ -208,7 +209,7 @@ oh-my-posh init pwsh --config 'C:\Users\TuUsuario\MiTema.omp.json' | Invoke-Expr
 
 -----
 
-## 3\. ✨ Integración con Oh My Posh
+## 3\. �?Integración con Oh My Posh
 
 Para que el *prompt* de Oh My Posh muestre el nombre del entorno virtual (ejemplo: `(venv) C:\ruta>`), necesitas que tu tema (`.omp.json`) tenga un segmento configurado para Python.
 
@@ -303,7 +304,7 @@ oh-my-posh init pwsh --config 'C:\Users\YourUser\MyTheme.omp.json' | Invoke-Expr
 
 -----
 
-## 3\. ✨ Oh My Posh Integration
+## 3\. �?Oh My Posh Integration
 
 For your custom prompt to display the virtual environment name (e.g., `(venv)`), your theme file (`.omp.json`) must include a `python` segment:
 
