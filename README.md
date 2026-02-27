@@ -190,12 +190,12 @@ Abre `C:\Users\TuUsuario\Documents\PowerShell\Microsoft.PowerShell_profile.ps1` 
 # --- Configuración de virtualenvwrapper-powershell ---
 
 # 1. DEFINIR la ruta de los entornos virtuales (CRÍTICO: PRIMERO!)
-$WORKON_HOME = "$HOME\.virtualenvs"
+$env:WORKON_HOME = "$HOME\.virtualenvs"
 
 # 2. (Opcional) Asegurar la existencia y ocultar la carpeta en Windows
-if (-not (Test-Path -Path $WORKON_HOME -PathType Container)) {
-    New-Item -Path $WORKON_HOME -ItemType Directory -Force | Out-Null
-    (Get-Item $WORKON_HOME).Attributes += 'Hidden'
+if (-not (Test-Path -Path $env:WORKON_HOME -PathType Container)) {
+    New-Item -Path $env:WORKON_HOME -ItemType Directory -Force | Out-Null
+    (Get-Item $env:WORKON_HOME).Attributes += 'Hidden'
 }
 
 # 3. IMPORTAR el módulo (SEGUNDO!)
